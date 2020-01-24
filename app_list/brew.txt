@@ -1,0 +1,8 @@
+mas
+git
+rbenv
+ruby-build
+postgresql
+fish
+fzf
+ghq

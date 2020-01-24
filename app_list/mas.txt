@@ -1,0 +1,20 @@
+# Xcode
+497799835
+
+# LINE
+539883307
+
+# Skitch
+425955336
+
+# 1Password
+443987910
+
+# Todoist
+585829637
+
+# Alfred
+405843582
+
+# BetterSnapTool
+417375580
