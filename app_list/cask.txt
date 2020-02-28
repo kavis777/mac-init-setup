@@ -4,11 +4,9 @@ docker
 iterm2
 zoomus
 appcleaner
-adobe-creative-cloud
 dropbox
-evernote
 box-sync
-1password
 visual-studio-code
 alfred
 google-drive-file-stream
+nodenv
