@@ -10,3 +10,4 @@ visual-studio-code
 alfred
 google-drive-file-stream
 nodenv
+dash
