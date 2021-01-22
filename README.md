@@ -12,6 +12,13 @@
 git clone https://github.com/kavis777/mac-init-setup.git
 ```
 
+## システム環境設定の変更
+
+* Mission Controlのデスクトップを5個まで追加
+* Mission Controlの「最新の使用状況に基づいて操作スペースを自動的に並べ替える」をOFF
+* キーボード > ショートカット > Mission Control の「デスクトップNへの切り替え」をON
+* ディスプレイの解像度を変更
+* Dockとメニューバー > バッテリー の「割合（％）を表示」をON
 
 ## 環境の設定
  
