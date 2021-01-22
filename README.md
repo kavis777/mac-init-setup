@@ -39,10 +39,17 @@ sh sh/install_brew_app.sh
 sh sh/install_cask_app.sh
 ```
 
-## masアプリのインストール
-Appストアで手動でインストールした方がいいかも？
-→PCがクラッシュする原因になっている可能性あり
+## App Storeのアプリをインストール
 
-```
-sh sh/install_mas_app.sh
-```
+App Storeを起動してアプリをインストールする。
+
+## dotfilesの設定
+
+
+## アプリ個別の設定
+
+### VS Code
+
+### Dash
+
+### iTerm
