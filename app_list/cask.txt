@@ -8,5 +8,4 @@ dropbox
 box-sync
 visual-studio-code
 alfred
-nodenv
 dash

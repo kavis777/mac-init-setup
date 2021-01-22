@@ -6,3 +6,5 @@ postgresql
 fish
 fzf
 ghq
+nodenv
+docker
