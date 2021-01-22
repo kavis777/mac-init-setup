@@ -16,27 +16,27 @@ git clone https://github.com/kavis777/mac-init-setup.git
 ## 環境の設定
  
 ```
-sh sh/config_setup.sh
+sh config_setup.sh
 ```
 
 
 ## Homebrewのインストール
 
 ```
-sh sh/install_brew.sh
+sh install_brew.sh
 ```
 
 ## brewアプリのインストール
 
 ```
-sh sh/install_brew_app.sh
+sh install_brew_app.sh
 ```
 
 
 ## caskアプリのインストール
 
 ```
-sh sh/install_cask_app.sh
+sh install_cask_app.sh
 ```
 
 ## App Storeのアプリをインストール
