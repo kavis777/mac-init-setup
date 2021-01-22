@@ -1,4 +1,3 @@
-mas
 git
 rbenv
 ruby-build
