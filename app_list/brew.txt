@@ -1,9 +1,12 @@
-git
-rbenv
-ruby-build
-postgresql
+docker
 fish
 fzf
 ghq
+git
+neovim
 nodenv
-docker
+postgresql
+rbenv
+ruby-build
+tig
+yvm
