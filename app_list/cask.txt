@@ -1,5 +1,4 @@
 google-chrome
-fork
 docker
 iterm2
 zoomus
