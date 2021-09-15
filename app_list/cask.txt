@@ -9,3 +9,6 @@ box-sync
 visual-studio-code
 alfred
 dash
+notion
+skitch
+cmd-eikana
