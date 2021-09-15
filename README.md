@@ -22,13 +22,15 @@
 
 ## 設定手順
 
-このリポジトリをクローンした後にターミナルで以下のコマンドを実行する。
+このリポジトリをクローンしてhomebrewをインストールした後にターミナルで以下のコマンドを実行する。
+
+homebrewのインストールは以下から行う。
+https://brew.sh/index_ja
 
 ```
 git clone https://github.com/kavis777/mac-init-setup.git
 
 sh config_setup.sh
-sh install_brew.sh
 sh install_brew_app.sh
 sh install_cask_app.sh
 ```
