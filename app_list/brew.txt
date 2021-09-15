@@ -9,4 +9,4 @@ postgresql
 rbenv
 ruby-build
 tig
-yvm
+tophat/bar/yvm
