@@ -9,3 +9,4 @@ rbenv
 ruby-build
 tig
 tophat/bar/yvm
+node-build

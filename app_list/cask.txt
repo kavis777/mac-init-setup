@@ -11,3 +11,4 @@ dash
 notion
 skitch
 cmd-eikana
+fork
