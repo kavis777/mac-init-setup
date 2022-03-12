@@ -1,5 +1,4 @@
 google-chrome
-fork
 docker
 iterm2
 zoomus
@@ -9,3 +8,7 @@ box-sync
 visual-studio-code
 dash
 raycast
+notion
+skitch
+cmd-eikana
+fork

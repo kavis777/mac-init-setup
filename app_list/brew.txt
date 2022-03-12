@@ -1,4 +1,3 @@
-docker
 fish
 fzf
 ghq
@@ -11,3 +10,4 @@ ruby-build
 tig
 tophat/bar/yvm
 heroku/brew/heroku
+node-build
