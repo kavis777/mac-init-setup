@@ -7,5 +7,5 @@ appcleaner
 dropbox
 box-sync
 visual-studio-code
-alfred
 dash
+raycast
