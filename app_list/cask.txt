@@ -12,4 +12,3 @@ notion
 raycast
 skitch
 visual-studio-code
-xcodes
