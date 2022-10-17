@@ -1,8 +1,10 @@
 appcleaner
+box-sync
 cmd-eikana
 dash
 docker
 dropbox
+firefox
 fork
 google-chrome
 iterm2
@@ -10,3 +12,4 @@ notion
 raycast
 skitch
 visual-studio-code
+xcodes
