@@ -1,10 +1,8 @@
 google-chrome
 docker
 iterm2
-zoomus
 appcleaner
 dropbox
-box-sync
 visual-studio-code
 dash
 raycast
