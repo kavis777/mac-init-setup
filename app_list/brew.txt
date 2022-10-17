@@ -11,3 +11,4 @@ tig
 tophat/bar/yvm
 heroku/brew/heroku
 node-build
+zsh-autosuggestions
