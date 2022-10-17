@@ -1,0 +1,7 @@
+# caskでインストールせずに直接インストールしたアプリ
+LayerX.app
+Logi Options.app
+TrendMicroSecurity.app
+
+# Appストアからインストールしたアプリ
+BetterSnapTool.app
