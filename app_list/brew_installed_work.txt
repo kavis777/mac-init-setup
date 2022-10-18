@@ -1,0 +1,22 @@
+# brewでインストールしている他からの依存関係がないパッケージ一覧
+# メモとして残しておく
+fish
+fzf
+gcc
+ghq
+neovim
+nghttp2
+nodenv
+pack
+Warning: Use postgresql@14 instead of deprecated postgresql
+postgresql
+postgresql@14
+rbenv
+shared-mime-info
+shellcheck
+tig
+tmux
+v8
+yvm
+zsh-autosuggestions
+zsh-syntax-highlighting
