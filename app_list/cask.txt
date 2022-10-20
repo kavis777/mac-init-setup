@@ -9,6 +9,7 @@ fork
 google-chrome
 iterm2
 notion
+obsidian
 raycast
 skitch
 visual-studio-code
