@@ -1,7 +1,16 @@
 # caskでインストールせずに直接インストールしたアプリ
-LayerX.app
-Logi Options.app
-TrendMicroSecurity.app
+LayerX
+Logi Options
+TrendMicroSecurity
+Android File Transfer
+calibre
+ScanSnap Home
+Tag Editor Free
+VideoSolo ブルーレイプレーヤー
 
 # Appストアからインストールしたアプリ
-BetterSnapTool.app
+BetterSnapTool
+Line
+MARKETSPEED
+Microsoft PowerPoint
+iMovie
