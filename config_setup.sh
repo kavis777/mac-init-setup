@@ -7,6 +7,7 @@ killall Finder
 # dotfilesをホームディレクトリにクローン
 git clone https://github.com/kavis777/dotfiles.git ~/dotfiles
 
-# gitの設定ファイルのシンボリックリンクをホームディレクトリに作成
+# 各設定ファイルのシンボリックリンクをホームディレクトリに作成
 ln -s ~/dotfiles/.gitconfig ~
 ln -s ~/dotfiles/.gitignore_global ~
+ln -s ~/dotfiles/zsh/.zshrc ~
