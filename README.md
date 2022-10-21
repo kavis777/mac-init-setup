@@ -59,11 +59,10 @@ echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
 chsh -s /opt/homebrew/bin/fish
 ```
 
-### brewでインストールしたパッケージ一覧の更新方法
+### brewでインストールしたパッケージ一覧を表示する方法
 
 ターミナルで以下のコマンドを実行する。
 ```
-brew list -1
+brew list --formula | xargs -I{} sh -c 'brew uses --installed {} | wc -l | xargs printf "%s %d\n" {}' | xargs -I{} sh -c 'if [[ "{}" =~ " 0" ]]; then echo {};fi' | sed -e "s/ 0//"
 ```
 
-すると現在インストールしているパッケージが一覧で表示されるので、[difff](https://difff.jp/)で差分を確認して、手動で更新する。
