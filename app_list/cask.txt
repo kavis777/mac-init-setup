@@ -1,4 +1,5 @@
 appcleaner
+bitwarden
 box-sync
 cmd-eikana
 dash
