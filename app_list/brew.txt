@@ -5,6 +5,7 @@ neovim
 pack
 postgresql
 postgresql@14
+ripgrep
 shellcheck
 tig
 tmux
