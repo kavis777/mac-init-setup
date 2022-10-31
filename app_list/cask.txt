@@ -5,6 +5,7 @@ cmd-eikana
 dash
 docker
 dropbox
+figma
 firefox
 fork
 google-chrome
