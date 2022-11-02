@@ -44,9 +44,12 @@ sh install_cask_app.sh
   - Dashの設定でDropbooxを参照
   - iTerm2の設定でDropboxを参照
     - https://zenn.dev/ryuu/articles/iterm2-sync-setting
+  - .zsh_hisotoryの共有
+    ```
+    ln -s -f  ~/Dropbox/Apps/zsh/.zsh_history ~
+    ```
 - VS Code を起動して設定をインポート
-- LayerXをダウンロード
-  - https://yuhua-chen.github.io/LayerX/
+- cask_not.txtにあるアプリを手動でインストール
 - 英かなでキーリマップの設定
 
 ### fishの設定
