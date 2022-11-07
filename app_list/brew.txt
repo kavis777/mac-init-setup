@@ -6,6 +6,7 @@ pack
 postgresql
 postgresql@14
 ripgrep
+sheldon
 shellcheck
 tig
 tmux
