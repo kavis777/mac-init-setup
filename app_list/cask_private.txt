@@ -1,2 +1,7 @@
-zoomus
 box-sync
+zoomus
+ifunbox
+keyboardcleantool
+kindle
+macx-dvd-ripper-pro
+vlc
