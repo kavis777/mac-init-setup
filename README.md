@@ -39,15 +39,13 @@ mac-init-setupリポジトリ配下で以下のコマンドを実行する。
 sh config_setup.sh
 sh install_brew_app.sh
 sh install_cask_app.sh
+sh install_asdf.sh
 ```
 
 ## 手動でやること
 
-- homebrewのインストール & 環境変数の設定
 - App Storeを起動して必要なアプリをインストール
 - Dropboxのアプリを起動してログイン
-  - 1Passwordの設定でDropbooxを参照
-  - Dashの設定でDropbooxを参照
   - iTerm2の設定でDropboxを参照
     - https://zenn.dev/ryuu/articles/iterm2-sync-setting
   - .zsh_hisotoryの共有
@@ -57,16 +55,6 @@ sh install_cask_app.sh
 - VS Code を起動して設定をインポート
 - cask_not.txtにあるアプリを手動でインストール
 - 英かなでキーリマップの設定
-
-### fishの設定
-
-brewでfishのインストール後にターミナルで以下のコマンドを実行する。
-　
-```
-ln -s ~/dotfiles/.config/ ~
-echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
-chsh -s /opt/homebrew/bin/fish
-```
 
 ### brewでインストールしたパッケージ一覧を表示する方法
 
