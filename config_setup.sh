@@ -12,3 +12,5 @@ ln -s ~/dotfiles/.gitconfig ~
 ln -s ~/dotfiles/.gitignore_global ~
 ln -s ~/dotfiles/zsh/.zshrc ~
 ln -s ~/dotfiles/tmux/.tmux.conf ~
+ln -s ~/dotfiles/zsh/sheldon ~/.config
+ln -s ~/dotfiles/nvim ~/.config
