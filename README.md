@@ -11,6 +11,7 @@
 - Mission Control > ホットコーナー　で画面左上でスリープの設定
 - ディスプレイの解像度を変更
 - Dockとメニューバー > バッテリー の「割合（％）を表示」をON
+- キーボード > キーボード > 「リピート入力認識までの時間」を短いに変更
 - キーボード > ショートカット > Mission Control の「デスクトップNへの切り替え」をON
 - キーボード > ショートカット > 入力ソース　の「前の入力ソースを選択」をOFF
 - キーボード > ショートカット > スクリーンショット で各キャプチャのショートカットを「CMD + N」に変更
@@ -22,14 +23,19 @@
 
 ## 設定手順
 
-このリポジトリをクローンしてhomebrewをインストールした後にターミナルで以下のコマンドを実行する。
-
-homebrewのインストールは以下から行う。
+以下のサイトからhomebrewのインストールを行う。
 https://brew.sh/index_ja
+
+
+任意のディレクトリに以下のリポジトリをクローンする。
 
 ```
 git clone https://github.com/kavis777/mac-init-setup.git
+```
 
+mac-init-setupリポジトリ配下で以下のコマンドを実行する。
+
+```
 sh config_setup.sh
 sh install_brew_app.sh
 sh install_cask_app.sh
