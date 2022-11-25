@@ -46,14 +46,20 @@ sh install_asdf.sh
 ## 手動でやること
 
 - App Storeを起動して必要なアプリをインストール
-- Dropboxのアプリを起動してログイン
-  - iTerm2の設定でDropboxを参照
-    - https://zenn.dev/ryuu/articles/iterm2-sync-setting
+- Dropbox
+  - アプリを起動してログイン
+  - iTerm2の設定を共有
+    ```
+    ln -s -f ~/Dropbox/Apps/iTerm2/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
+    ```
   - .zsh_hisotoryの共有
     ```
     ln -s -f  ~/Dropbox/Apps/zsh/.zsh_history ~
     ```
-- VS Code を起動して設定をインポート
+- VS Code
+  - アプリを起動して設定を同期
+- Raycast
+  - アプリを起動して設定をインポート
 - cask_not.txtにあるアプリを手動でインストール
 - 英かなでキーリマップの設定
 
