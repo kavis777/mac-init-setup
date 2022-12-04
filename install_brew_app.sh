@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Homebrewでアプリをインストール
-for app in $(cat app_list/brew.txt);
+cat < app_list/brew.txt | while IFS= read -r app;
 do
   brew list "${app}" > /dev/null 2>&1
   if test $? -eq 0;
