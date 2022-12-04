@@ -62,6 +62,7 @@ sh install_asdf.sh
   - アプリを起動して設定をインポート
 - cask_not.txtにあるアプリを手動でインストール
 - 英かなでキーリマップの設定
+- [vim-plug](https://github.com/junegunn/vim-plug)のインストール
 
 ### brewでインストールしたパッケージ一覧を表示する方法
 
