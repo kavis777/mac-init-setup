@@ -2,8 +2,6 @@ asdf
 fzf
 ghq
 neovim
-pack
-postgresql
 postgresql@14
 ripgrep
 sheldon
