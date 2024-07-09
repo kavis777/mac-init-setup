@@ -53,14 +53,13 @@ sh install_asdf.sh
 - App Storeを起動して必要なアプリをインストール
 - Dropbox
   - アプリを起動してログイン
-  - iTerm2の設定を共有
-    ```
-    ln -s -f ~/Dropbox/Apps/iTerm2/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
-    ```
   - .zsh_hisotoryの共有
     ```
     ln -s -f  ~/Dropbox/Apps/zsh/.zsh_history ~
     ```
+- iTerm2
+  - アプリを起動して、Settings > General > Settings の「Import All Settings and Data」で`~/Dropbox/Apps/iTerm2/iTerm2 State.itermexport`を選択する
+  - Settings > General > Settings の「Load settings from a custom folder or URL」にチェックを入れてPathに/Users/kawabe/Dropbox/Apps/iTerm2を選択して「Save changes」を「Manually」に変更する
 - VS Code
   - アプリを起動して設定を同期
 - Raycast
