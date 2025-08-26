@@ -10,3 +10,4 @@ tig
 tmux
 zsh-autosuggestions
 zsh-syntax-highlighting
+gh
