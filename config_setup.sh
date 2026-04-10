@@ -19,3 +19,9 @@ ln -sf ~/dotfiles/.gitignore_global ~
 ln -sf ~/dotfiles/zsh/.zshrc ~
 ln -sf ~/dotfiles/zsh/sheldon ~/.config
 ln -sf ~/dotfiles/nvim ~/.config
+
+# ai-memoryをホームディレクトリにクローン & セットアップ
+if [[ ! -d ~/ai-memory ]]; then
+  git clone https://github.com/kavis777/ai-memory.git ~/ai-memory
+fi
+bash ~/ai-memory/scripts/setup.sh --work
