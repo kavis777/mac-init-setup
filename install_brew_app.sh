@@ -1,13 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
 # Homebrewでアプリをインストール
-cat < app_list/brew.txt | while IFS= read -r app;
-do
-  brew list "${app}" > /dev/null 2>&1
-  if test $? -eq 0;
-  then
-    echo "Installed ${app}"
+while IFS= read -r app; do
+  [[ -z "$app" || "$app" == \#* ]] && continue
+  if brew list "$app" > /dev/null 2>&1; then
+    echo "Already installed: $app"
   else
-    brew install "${app}"
+    echo "Installing: $app"
+    brew install "$app"
   fi
-done
+done < app_list/brew.txt

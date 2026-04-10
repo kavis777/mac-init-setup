@@ -1,13 +1,32 @@
-asdf
-fzf
-ghq
-neovim
-postgresql@14
-ripgrep
-sheldon
-shellcheck
-tig
-tmux
-zsh-autosuggestions
-zsh-syntax-highlighting
-gh
+# バージョン管理
+asdf              # 言語バージョン管理ツール（Node.js, Ruby等）
+
+# エディタ
+neovim            # ターミナルベースのテキストエディタ
+
+# Git関連
+gh                # GitHub CLI
+ghq               # Gitリポジトリ管理
+# 検索・ファイル操作
+fd                # 高速なfind代替
+fzf               # ファジーファインダー（Ctrl+Rの履歴検索等）
+ripgrep           # 高速なgrep代替
+yazi              # TUIファイルマネージャ
+
+# zshプラグイン管理
+sheldon           # zshプラグインマネージャ
+
+# シェルスクリプト
+shellcheck        # シェルスクリプトの静的解析
+
+# 画像・動画処理
+ffmpeg            # 動画変換・処理
+ffmpegthumbnailer # 動画サムネイル生成（yaziプレビュー用）
+imagemagick       # 画像変換・処理
+poppler           # PDF処理（yaziプレビュー用）
+
+# データベース
+postgresql@14     # PostgreSQL
+
+# パッケージマネージャ
+yarn              # Node.jsパッケージマネージャ

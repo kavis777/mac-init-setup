@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # プラグインの追加
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
@@ -13,6 +13,6 @@ asdf global nodejs latest
 asdf global ruby latest
 
 # プロジェクトごとに.node-versionや.ruby-versionを参照するように設定
-echo 'legacy_version_file = yes' >> "${HOME}"/.asdfrc
-
-
+if ! grep -q 'legacy_version_file' "$HOME/.asdfrc" 2>/dev/null; then
+  echo 'legacy_version_file = yes' >> "$HOME/.asdfrc"
+fi

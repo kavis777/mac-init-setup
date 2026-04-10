@@ -1,17 +1,34 @@
-appcleaner
-bitwarden
-box-sync
-cmd-eikana
-docker
-dropbox
-figma
-firefox
-fork
-google-chrome
-iterm2
-notion
-obsidian
-raycast
-skitch
-visual-studio-code
-git-credential-manager
+# ブラウザ
+google-chrome     # Webブラウザ
+
+# 開発ツール
+claude-code       # Claude Code CLI
+codex             # OpenAI Codex CLI
+cursor            # AI搭載コードエディタ
+visual-studio-code # コードエディタ
+docker            # コンテナランタイム
+docker-desktop    # Docker GUI
+fork              # Gitクライアント
+tableplus         # データベースGUIクライアント
+session-manager-plugin # AWS SSMプラグイン
+cmux              # AIエージェント向けターミナル（Ghosttyベース）
+git-credential-manager # Git認証管理
+
+# デザイン
+figma             # デザインツール
+
+# ユーティリティ
+appcleaner        # アプリの完全削除
+cmd-eikana        # 英かな切替（左右Cmdキー）
+raycast           # ランチャー（Spotlight代替）
+
+# クラウドストレージ
+box-sync          # Box同期
+dropbox           # Dropbox同期
+
+# ドキュメント
+notion            # ドキュメント・ナレッジベース
+obsidian          # Markdownノートアプリ
+
+# コミュニケーション
+zoom              # ビデオ会議
