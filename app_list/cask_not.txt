@@ -1,16 +1,7 @@
 # caskでインストールせずに直接インストールしたアプリ
-LayerX
-Logi Options
-TrendMicroSecurity
-Android File Transfer
-calibre
-ScanSnap Home
-Tag Editor Free
-VideoSolo ブルーレイプレーヤー
+LayerX              # 経費精算・請求書処理
+TrendMicroSecurity  # ウイルス対策ソフト
+VideoSolo ブルーレイプレーヤー # ブルーレイ再生
 
-# Appストアからインストールしたアプリ
-BetterSnapTool
-Line
-MARKETSPEED
-Microsoft PowerPoint
-iMovie
+# App Storeからインストールしたアプリ
+Line                # メッセージアプリ

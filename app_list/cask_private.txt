@@ -1,7 +1,2 @@
-box-sync
-zoomus
-ifunbox
-keyboardcleantool
-kindle
-macx-dvd-ripper-pro
-vlc
+# 個人用caskアプリ（メインのcask.txtには含めない）
+macx-dvd-ripper-pro # DVDリッピング
