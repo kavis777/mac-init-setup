@@ -12,15 +12,13 @@ fi
 # VS Codeでキーを連打できるように設定
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
-# 各設定ファイルのシンボリックリンクをホームディレクトリに作成
-mkdir -p ~/.config
-ln -sf ~/dotfiles/.gitconfig ~
-ln -sf ~/dotfiles/.gitignore_global ~
-ln -sf ~/dotfiles/zsh/.zshrc ~
-ln -sf ~/dotfiles/zsh/sheldon ~/.config
-ln -sf ~/dotfiles/nvim ~/.config
-mkdir -p ~/.claude
-ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
+# ~/dotfiles/links.conf から読み取ってシンボリックリンクを作成
+while IFS=: read -r source target; do
+  [[ -z "$source" || "$source" == \#* ]] && continue
+  target="${target/#\~/$HOME}"
+  mkdir -p "$(dirname "$target")"
+  ln -sf ~/dotfiles/"$source" "$target"
+done < ~/dotfiles/links.conf
 
 # ai-memoryをホームディレクトリにクローン & セットアップ
 if [[ ! -d ~/ai-memory ]]; then
