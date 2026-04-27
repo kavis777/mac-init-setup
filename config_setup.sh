@@ -19,6 +19,8 @@ ln -sf ~/dotfiles/.gitignore_global ~
 ln -sf ~/dotfiles/zsh/.zshrc ~
 ln -sf ~/dotfiles/zsh/sheldon ~/.config
 ln -sf ~/dotfiles/nvim ~/.config
+mkdir -p ~/.claude
+ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
 
 # ai-memoryをホームディレクトリにクローン & セットアップ
 if [[ ! -d ~/ai-memory ]]; then
