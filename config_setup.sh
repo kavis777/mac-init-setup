@@ -20,6 +20,13 @@ while IFS=: read -r source target; do
   ln -sf ~/dotfiles/"$source" "$target"
 done < ~/dotfiles/links.conf
 
+# ~/.claude/settings.local.json がなければテンプレートから作成
+if [[ ! -f ~/.claude/settings.local.json ]]; then
+  mkdir -p ~/.claude
+  cp ~/dotfiles/claude/settings.local.json.template ~/.claude/settings.local.json
+  echo "TODO: ~/.claude/settings.local.json のトークンを設定してください"
+fi
+
 # ai-memoryをホームディレクトリにクローン & セットアップ
 if [[ ! -d ~/ai-memory ]]; then
   git clone https://github.com/kavis777/ai-memory.git ~/ai-memory
