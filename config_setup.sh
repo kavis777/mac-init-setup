@@ -25,3 +25,9 @@ if [[ ! -d ~/ai-memory ]]; then
   git clone https://github.com/kavis777/ai-memory.git ~/ai-memory
 fi
 bash ~/ai-memory/scripts/setup.sh --work
+
+# claude-configをホームディレクトリにクローン & セットアップ
+if [[ ! -d ~/claude-config ]]; then
+  git clone https://github.com/lcl-bus/claude-config.git ~/claude-config
+fi
+bash ~/claude-config/setup.sh front
