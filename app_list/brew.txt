@@ -19,6 +19,12 @@ sheldon           # zshプラグインマネージャ
 # シェルスクリプト
 shellcheck        # シェルスクリプトの静的解析
 
+# JSON処理
+jq                # JSONプロセッサ
+
+# シークレット管理
+bitwarden-cli     # Bitwarden CLIクライアント
+
 # 画像・動画処理
 ffmpeg            # 動画変換・処理
 ffmpegthumbnailer # 動画サムネイル生成（yaziプレビュー用）

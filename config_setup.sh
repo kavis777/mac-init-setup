@@ -24,7 +24,7 @@ done < ~/dotfiles/links.conf
 if [[ ! -f ~/.claude/settings.local.json ]]; then
   mkdir -p ~/.claude
   cp ~/dotfiles/claude/settings.local.json.template ~/.claude/settings.local.json
-  echo "TODO: ~/.claude/settings.local.json のトークンを設定してください"
+  echo "トークンの設定は setup_secrets.sh で自動的に行われます"
 fi
 
 # ai-memoryをホームディレクトリにクローン & セットアップ

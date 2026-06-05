@@ -46,6 +46,7 @@ sh config_setup.sh
 sh install_brew_app.sh
 sh install_cask_app.sh
 sh install_asdf.sh
+sh setup_secrets.sh
 ```
 
 ## 手動でやること
@@ -69,9 +70,35 @@ sh install_asdf.sh
   - vim を起動して`:PlugInstall`コマンドを実行
 - cask_not.txt にあるアプリを手動でインストール
 - 英かなでキーリマップの設定
-- 旧環境の`~/.ssh`を新環境にコピーする
-- gh のアカウント連携をする
-  - `gh auth login --web`
+- 旧環境の`~/.ssh`を新環境にコピーする（Bitwarden に登録済みなら `setup_secrets.sh` で自動復元）
+- gh のアカウント連携をする（Bitwarden に登録済みなら `setup_secrets.sh` で自動認証）
+  - 手動の場合: `gh auth login --web`
+
+### シークレットの管理
+
+シークレット（APIトークン、SSH鍵等）は Bitwarden CLI で管理している。
+
+**新しいシークレットを追加する場合:**
+
+1. `secrets.conf` に1行追加する
+2. `sh register_secrets.sh` で現在の値をBitwardenに登録する
+
+```
+# 例: 新しいMCPサーバーのトークンを追加
+json:claude-newservice-token:~/.claude/settings.local.json:.mcpServers.newservice.env.API_TOKEN
+```
+
+**現在のマシンのシークレットをBitwardenに登録（バックアップ）:**
+
+```
+sh register_secrets.sh
+```
+
+**新しいマシンにシークレットを復元:**
+
+```
+sh setup_secrets.sh
+```
 
 ### brew でインストールしたパッケージ一覧を表示する方法
 
