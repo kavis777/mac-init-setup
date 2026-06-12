@@ -10,8 +10,8 @@ if ! command -v gh &>/dev/null; then
 fi
 
 if ! gh auth status &>/dev/null; then
-  echo "エラー: GitHub CLI が認証されていません。先に setup_secrets.sh を実行してください。"
-  exit 1
+  echo "GitHub認証が必要です。ブラウザでログインしてください。"
+  gh auth login
 fi
 
 # 隠しファイル・フォルダを表示
