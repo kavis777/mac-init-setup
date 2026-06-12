@@ -31,5 +31,8 @@ dropbox           # Dropbox同期
 notion            # ドキュメント・ナレッジベース
 obsidian          # Markdownノートアプリ
 
+# AI
+chatgpt           # ChatGPTデスクトップアプリ
+
 # コミュニケーション
 zoom              # ビデオ会議
