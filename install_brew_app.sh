@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Homebrewが未インストールならインストール
+if ! command -v brew &>/dev/null; then
+  echo "Homebrewをインストールします..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # Homebrewでアプリをインストール
 while IFS= read -r app; do
   [[ -z "$app" || "$app" == \#* ]] && continue
