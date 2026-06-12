@@ -36,15 +36,22 @@
 git clone https://github.com/kavis777/mac-init-setup.git
 ```
 
-mac-init-setup リポジトリ配下で以下のコマンドを実行する。
+mac-init-setup リポジトリ配下で以下のコマンドを順に実行する。
+
+1. Homebrew パッケージ（bw, gh 等）のインストール
+2. GUI アプリのインストール
+3. GitHub PAT・SSH鍵の復元（JSONシークレットはスキップされる）
+4. dotfiles 等のクローン・シンボリックリンク
+5. 言語ランタイムのインストール
+6. JSONシークレットの適用（settings.local.json が存在する状態で再実行）
 
 ```
-sh install_brew_app.sh      # Homebrew パッケージ（bw, gh 等）
-sh install_cask_app.sh      # GUI アプリ
-sh setup_secrets.sh         # GitHub PAT・SSH鍵の復元（JSONシークレットはスキップ）
-sh config_setup.sh          # dotfiles 等のクローン・シンボリックリンク
-sh install_asdf.sh          # 言語ランタイム
-sh setup_secrets.sh         # JSONシークレットの適用（settings.local.json が存在する状態で再実行）
+sh install_brew_app.sh
+sh install_cask_app.sh
+sh setup_secrets.sh
+sh config_setup.sh
+sh install_asdf.sh
+sh setup_secrets.sh
 ```
 
 ## 手動でやること
