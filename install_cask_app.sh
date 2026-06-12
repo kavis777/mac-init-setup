@@ -3,7 +3,9 @@
 # caskでアプリをインストール
 missing=()
 while IFS= read -r app; do
-  [[ -z "$app" || "$app" == \#* ]] && continue
+  app="${app%%#*}"
+  app="${app%"${app##*[![:space:]]}"}"
+  [[ -z "$app" ]] && continue
   if brew list --cask "$app" > /dev/null 2>&1; then
     echo "Already installed: $app"
   else
