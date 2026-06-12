@@ -19,6 +19,7 @@ figma             # デザインツール
 
 # ユーティリティ
 appcleaner        # アプリの完全削除
+cleanshot         # スクリーンショット・画面録画
 cmd-eikana        # 英かな切替（左右Cmdキー）
 raycast           # ランチャー（Spotlight代替）
 
