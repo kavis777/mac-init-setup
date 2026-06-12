@@ -17,6 +17,9 @@ while IFS= read -r app; do
     echo "Already installed: $app"
   else
     echo "Installing: $app"
-    brew install "$app"
+    if ! brew install "$app"; then
+      echo "エラー: ${app} のインストールに失敗しました" >&2
+      exit 1
+    fi
   fi
 done < app_list/brew.txt
