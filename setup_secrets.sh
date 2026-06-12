@@ -2,44 +2,44 @@
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-set -euo pipefail
+set -eo pipefail
 
 # Bitwarden CLIを使ってシークレットを復元するスクリプト
-# シークレットの定義は secrets.conf を参照
+# bw が未インストールの場合、gh認証のみインタラクティブに行う
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SECRETS_CONF="$SCRIPT_DIR/secrets.conf"
 
-# ---------- 前提チェック ----------
-
-for cmd in bw jq; do
-  if ! command -v "$cmd" &>/dev/null; then
-    echo "エラー: ${cmd} がインストールされていません (brew install ${cmd})"
-    exit 1
-  fi
-done
-
 if [[ ! -f "$SECRETS_CONF" ]]; then
-  echo "エラー: $SECRETS_CONF が見つかりません"
+  echo "エラー: ${SECRETS_CONF} が見つかりません"
   exit 1
 fi
 
-# ---------- Bitwarden ログイン・アンロック ----------
+# ---------- Bitwarden の利用可否 ----------
 
-bw_status=$(bw status 2>/dev/null | jq -r '.status')
+HAS_BW=false
+if command -v bw &>/dev/null && command -v jq &>/dev/null; then
+  HAS_BW=true
 
-if [[ "$bw_status" == "unauthenticated" ]]; then
-  echo "Bitwardenにログインします..."
-  bw login
+  bw_status=$(bw status 2>/dev/null | jq -r '.status')
+
+  if [[ "$bw_status" == "unauthenticated" ]]; then
+    echo "Bitwardenにログインします..."
+    bw login
+  fi
+
+  if [[ "$bw_status" != "unlocked" ]]; then
+    echo "Bitwardenの保管庫をアンロックします..."
+    export BW_SESSION
+    BW_SESSION=$(bw unlock --raw)
+  fi
+
+  bw sync
+else
+  echo "⚠ bw/jq が未インストールのため Bitwarden 連携をスキップします"
+  echo "  gh認証のみインタラクティブに行います"
+  echo ""
 fi
-
-if [[ "$bw_status" != "unlocked" ]]; then
-  echo "Bitwardenの保管庫をアンロックします..."
-  export BW_SESSION
-  BW_SESSION=$(bw unlock --raw)
-fi
-
-bw sync
 
 # ---------- ハンドラー ----------
 
@@ -47,6 +47,11 @@ handle_json() {
   local bw_item="$1"
   local target_file="${2/#\~/$HOME}"
   local jq_path="$3"
+
+  if [[ "$HAS_BW" != "true" ]]; then
+    echo "⚠ bw が未インストールです (スキップ: ${bw_item})"
+    return
+  fi
 
   if [[ ! -f "$target_file" ]]; then
     echo "⚠ ${target_file} が存在しません (スキップ: ${bw_item})"
@@ -60,7 +65,7 @@ handle_json() {
     local tmp
     tmp=$(jq --arg v "$value" "$jq_path = \$v" "$target_file")
     echo "$tmp" > "$target_file"
-    echo "✔ $bw_item → $jq_path"
+    echo "✔ ${bw_item} → ${jq_path}"
   else
     echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
   fi
@@ -79,19 +84,28 @@ handle_gh() {
     return
   fi
 
-  local value
-  value=$(bw get password "$bw_item" 2>/dev/null) || true
+  if [[ "$HAS_BW" == "true" ]]; then
+    local value
+    value=$(bw get password "$bw_item" 2>/dev/null) || true
 
-  if [[ -n "$value" ]]; then
-    echo "$value" | gh auth login --with-token
-    echo "✔ GitHub CLI を認証しました"
-  else
-    echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
+    if [[ -n "$value" ]]; then
+      echo "$value" | gh auth login --with-token
+      echo "✔ GitHub CLI を認証しました (Bitwarden)"
+      return
+    fi
   fi
+
+  echo "ブラウザで GitHub にログインします..."
+  gh auth login --web
 }
 
 handle_ssh() {
   local bw_item="$1"
+
+  if [[ "$HAS_BW" != "true" ]]; then
+    echo "⚠ bw が未インストールです (スキップ: ${bw_item})"
+    return
+  fi
 
   local notes
   notes=$(bw list items --search "$bw_item" 2>/dev/null | jq -r '.[0].notes // empty') || true
@@ -115,7 +129,7 @@ handle_ssh() {
         else
           chmod 644 "$HOME/.ssh/$current_file"
         fi
-        echo "✔ ~/.ssh/$current_file を復元しました"
+        echo "✔ ~/.ssh/${current_file} を復元しました"
       else
         echo "✔ ~/.ssh/${current_file} は既に存在します (スキップ)"
       fi
