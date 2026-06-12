@@ -14,7 +14,7 @@ SECRETS_CONF="$SCRIPT_DIR/secrets.conf"
 
 for cmd in bw jq; do
   if ! command -v "$cmd" &>/dev/null; then
-    echo "エラー: $cmd がインストールされていません（brew install $cmd）"
+    echo "エラー: ${cmd} がインストールされていません (brew install ${cmd})"
     exit 1
   fi
 done
@@ -49,7 +49,7 @@ handle_json() {
   local jq_path="$3"
 
   if [[ ! -f "$target_file" ]]; then
-    echo "⚠ $target_file が存在しません（スキップ: $bw_item）"
+    echo "⚠ ${target_file} が存在しません (スキップ: ${bw_item})"
     return
   fi
 
@@ -62,7 +62,7 @@ handle_json() {
     echo "$tmp" > "$target_file"
     echo "✔ $bw_item → $jq_path"
   else
-    echo "⚠ Bitwardenに '$bw_item' が見つかりません（スキップ）"
+    echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
   fi
 }
 
@@ -70,7 +70,7 @@ handle_gh() {
   local bw_item="$1"
 
   if ! command -v gh &>/dev/null; then
-    echo "⚠ gh がインストールされていません（スキップ: $bw_item）"
+    echo "⚠ gh がインストールされていません (スキップ: ${bw_item})"
     return
   fi
 
@@ -86,7 +86,7 @@ handle_gh() {
     echo "$value" | gh auth login --with-token
     echo "✔ GitHub CLI を認証しました"
   else
-    echo "⚠ Bitwardenに '$bw_item' が見つかりません（スキップ）"
+    echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
   fi
 }
 
@@ -97,7 +97,7 @@ handle_ssh() {
   notes=$(bw list items --search "$bw_item" 2>/dev/null | jq -r '.[0].notes // empty') || true
 
   if [[ -z "$notes" ]]; then
-    echo "⚠ Bitwardenに '$bw_item' が見つかりません（スキップ）"
+    echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
     return
   fi
 
@@ -117,7 +117,7 @@ handle_ssh() {
         fi
         echo "✔ ~/.ssh/$current_file を復元しました"
       else
-        echo "✔ ~/.ssh/$current_file は既に存在します（スキップ）"
+        echo "✔ ~/.ssh/${current_file} は既に存在します (スキップ)"
       fi
     fi
   }
@@ -165,7 +165,7 @@ while IFS= read -r line; do
       handle_ssh "$rest"
       ;;
     *)
-      echo "⚠ 不明なタイプ: $type（スキップ: $line）"
+      echo "⚠ 不明なタイプ: ${type} (スキップ: ${line})"
       ;;
   esac
 done < "$SECRETS_CONF"

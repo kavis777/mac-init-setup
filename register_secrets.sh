@@ -11,7 +11,7 @@ SECRETS_CONF="$SCRIPT_DIR/secrets.conf"
 
 for cmd in bw jq; do
   if ! command -v "$cmd" &>/dev/null; then
-    echo "エラー: $cmd がインストールされていません（brew install $cmd）"
+    echo "エラー: ${cmd} がインストールされていません (brew install ${cmd})"
     exit 1
   fi
 done
@@ -94,7 +94,7 @@ register_json() {
   local jq_path="$3"
 
   if [[ ! -f "$target_file" ]]; then
-    echo "⚠ $target_file が存在しません（スキップ: $bw_item）"
+    echo "⚠ ${target_file} が存在しません (スキップ: ${bw_item})"
     return
   fi
 
@@ -102,7 +102,7 @@ register_json() {
   value=$(jq -r "$jq_path // empty" "$target_file" 2>/dev/null) || true
 
   if [[ -z "$value" || "$value" == "<"* ]]; then
-    echo "⚠ $target_file の $jq_path が未設定です（スキップ: $bw_item）"
+    echo "⚠ ${target_file} の ${jq_path} が未設定です (スキップ: ${bw_item})"
     return
   fi
 
@@ -113,7 +113,7 @@ register_gh() {
   local bw_item="$1"
 
   if ! command -v gh &>/dev/null; then
-    echo "⚠ gh がインストールされていません（スキップ: $bw_item）"
+    echo "⚠ gh がインストールされていません (スキップ: ${bw_item})"
     return
   fi
 
@@ -121,7 +121,7 @@ register_gh() {
   token=$(gh auth token 2>/dev/null) || true
 
   if [[ -z "$token" ]]; then
-    echo "⚠ GitHub CLI が認証されていません（スキップ: $bw_item）"
+    echo "⚠ GitHub CLI が認証されていません (スキップ: ${bw_item})"
     return
   fi
 
@@ -147,7 +147,7 @@ $(cat "$file")
   done
 
   if [[ -z "$notes" ]]; then
-    echo "⚠ ~/.ssh にファイルがありません（スキップ: $bw_item）"
+    echo "⚠ ~/.ssh にファイルがありません (スキップ: ${bw_item})"
     return
   fi
 
@@ -180,7 +180,7 @@ while IFS= read -r line; do
       register_ssh "$rest"
       ;;
     *)
-      echo "⚠ 不明なタイプ: $type（スキップ: $line）"
+      echo "⚠ 不明なタイプ: ${type} (スキップ: ${line})"
       ;;
   esac
 done < "$SECRETS_CONF"
