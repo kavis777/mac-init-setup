@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# ---------- 前提チェック ----------
+
+if ! command -v gh &>/dev/null; then
+  echo "エラー: gh がインストールされていません。先に install_brew_app.sh を実行してください。"
+  exit 1
+fi
+
+if ! gh auth status &>/dev/null; then
+  echo "エラー: GitHub CLI が認証されていません。先に setup_secrets.sh を実行してください。"
+  exit 1
+fi
+
 # 隠しファイル・フォルダを表示
 defaults write com.apple.finder AppleShowAllFiles TRUE
 killall Finder

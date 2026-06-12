@@ -42,11 +42,12 @@ git clone https://github.com/kavis777/mac-init-setup.git
 mac-init-setup リポジトリ配下で以下のコマンドを実行する。
 
 ```
-sh config_setup.sh
-sh install_brew_app.sh
-sh install_cask_app.sh
-sh install_asdf.sh
-sh setup_secrets.sh
+sh install_brew_app.sh      # Homebrew パッケージ（bw, gh 等）
+sh install_cask_app.sh      # GUI アプリ
+sh setup_secrets.sh         # GitHub PAT・SSH鍵の復元（JSONシークレットはスキップ）
+sh config_setup.sh          # dotfiles 等のクローン・シンボリックリンク
+sh install_asdf.sh          # 言語ランタイム
+sh setup_secrets.sh         # JSONシークレットの適用（settings.local.json が存在する状態で再実行）
 ```
 
 ## 手動でやること
@@ -70,9 +71,7 @@ sh setup_secrets.sh
   - vim を起動して`:PlugInstall`コマンドを実行
 - cask_not.txt にあるアプリを手動でインストール
 - 英かなでキーリマップの設定
-- 旧環境の`~/.ssh`を新環境にコピーする（Bitwarden に登録済みなら `setup_secrets.sh` で自動復元）
-- gh のアカウント連携をする（Bitwarden に登録済みなら `setup_secrets.sh` で自動認証）
-  - 手動の場合: `gh auth login --web`
+- SSH鍵・gh認証は `setup_secrets.sh` で自動復元される（Bitwarden未登録の場合: `gh auth login --web`）
 
 ### シークレットの管理
 
