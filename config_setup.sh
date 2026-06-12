@@ -31,7 +31,8 @@ while IFS=: read -r source target; do
   [[ -z "$source" || "$source" == \#* ]] && continue
   target="${target/#\~/$HOME}"
   mkdir -p "$(dirname "$target")"
-  ln -sf ~/dotfiles/"$source" "$target"
+  rm -rf "$target"
+  ln -s ~/dotfiles/"$source" "$target"
 done < ~/dotfiles/links.conf
 
 # ~/.claude/settings.local.json がなければテンプレートから作成
