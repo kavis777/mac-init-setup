@@ -4,8 +4,9 @@
 if ! command -v brew &>/dev/null; then
   echo "Homebrewをインストールします..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Homebrewでアプリをインストール
 while IFS= read -r app; do

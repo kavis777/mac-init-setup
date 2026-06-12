@@ -1,5 +1,7 @@
 #!/bin/bash
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # ---------- 前提チェック ----------
 
 if ! command -v gh &>/dev/null; then

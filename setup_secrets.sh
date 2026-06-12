@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Bitwarden CLIを使ってシークレットを復元するスクリプト
 # シークレットの定義は secrets.conf を参照
 

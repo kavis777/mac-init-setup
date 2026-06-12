@@ -1,5 +1,7 @@
 #!/bin/bash
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # caskでアプリをインストール
 missing=()
 while IFS= read -r app; do
