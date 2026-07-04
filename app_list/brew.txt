@@ -39,3 +39,6 @@ postgresql@14     # PostgreSQL
 
 # パッケージマネージャ
 yarn              # Node.jsパッケージマネージャ
+
+# 通知
+terminal-notifier # Mac通知の送信CLI（ai-memoryの日次ダイジェスト通知で使用）
