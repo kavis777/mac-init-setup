@@ -30,6 +30,7 @@ terminal-notifier # Mac通知送信（ai-memoryのルール変更通知等。ク
 
 # 画像・動画処理
 ffmpeg            # 動画変換・処理
+ffmpeg-full       # 動画変換（字幕/libass対応。podcast clips のクリップ生成で使用）
 ffmpegthumbnailer # 動画サムネイル生成（yaziプレビュー用）
 imagemagick       # 画像変換・処理
 poppler           # PDF処理（yaziプレビュー用）
@@ -39,6 +40,12 @@ postgresql@14     # PostgreSQL
 
 # パッケージマネージャ
 yarn              # Node.jsパッケージマネージャ
+
+# 言語ランタイム
+python@3.14       # Python 3.14（podcast clips / mlx-whisper で使用）
+
+# ネットワーク・トンネル
+cloudflared       # Cloudflare Tunnel クライアント（podcast clips の外部公開で使用）
 
 # 通知
 terminal-notifier # Mac通知の送信CLI（ai-memoryの日次ダイジェスト通知で使用）
