@@ -25,9 +25,6 @@ jq                # JSONプロセッサ
 # シークレット管理
 bitwarden-cli     # Bitwarden CLIクライアント
 
-# 通知
-terminal-notifier # Mac通知送信（ai-memoryのルール変更通知等。クリックでファイルを開ける）
-
 # 画像・動画処理
 ffmpeg            # 動画変換・処理
 ffmpeg-full       # 動画変換（字幕/libass対応。podcast clips のクリップ生成で使用）
