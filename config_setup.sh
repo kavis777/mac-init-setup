@@ -53,3 +53,9 @@ if [[ ! -d ~/claude-config ]]; then
   git clone https://github.com/lcl-bus/claude-config.git ~/claude-config
 fi
 bash ~/claude-config/setup.sh front
+
+# claude-personal（個人用スキル・コマンド）をクローン & セットアップ
+if [[ ! -d ~/claude-personal ]]; then
+  git clone https://github.com/kavis777/claude-personal.git ~/claude-personal
+fi
+bash ~/claude-personal/setup.sh
