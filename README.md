@@ -31,27 +31,45 @@
 ## 前提: 管理者権限
 
 会社支給のMacでは `kawabe` が標準ユーザーに設定されており `sudo` が使えない
-（`kawabe is not in the sudoers file` になる）。以下は管理者でないと実行できないため、
-セットアップ開始前に情報システム部に依頼する。
+（`kawabe is not in the sudoers file` になる）。Homebrew のインストールと
+pkg形式のcaskに管理者権限が要るため、**セットアップ中だけ `kawabe` を管理者に昇格させる**。
 
-1. **Command Line Tools のインストール**（`xcode-select --install` のダイアログで管理者認証）
-2. **Homebrew 用ディレクトリの作成と譲渡**
+1. 管理者アカウント名を確認する（旧マシンでは `lcl` と `n-m028`）
    ```
-   sudo mkdir -p /opt/homebrew
-   sudo chown -R kawabe:admin /opt/homebrew
+   dscl . -read /Groups/admin GroupMembership
    ```
-   これさえ済めば Homebrew 本体は tarball 展開で入れられ、以後の `brew install` に
-   sudo は不要（prefix が `/opt/homebrew` のままなのでビルド済みバイナリも効く）
+2. 昇格する。システム設定 > ユーザとグループ >（鍵を解除）> `kawabe` の
+   「このコンピュータの管理を許可」を ON にして再ログイン。ターミナルなら
    ```
-   curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip-components 1 -C /opt/homebrew
+   su - <管理者アカウント名>
+   sudo dseditgroup -o edit -a kawabe -t user admin
+   exit
    ```
-3. **pkg形式のcask 4本**: `session-manager-plugin` `git-credential-manager` `gcloud-cli` `zoom`
-   （インストーラが管理者認証を求めるため）
+3. 確認する
+   ```
+   id -Gn | tr ' ' '\n' | grep -x admin && sudo -v && echo OK
+   ```
+4. 下記のセットアップ手順を実行する
+5. 終わったら標準ユーザーに戻す
+   ```
+   sudo dseditgroup -o delete -a kawabe -t user admin
+   ```
 
-セットアップ中だけ一時的に管理者権限をもらえるなら、上記は不要で手順どおり進められる。
+戻しても `brew` は使える（`/opt/homebrew` の所有者が `kawabe` 個人になるため）。
+ただし `/Applications` には書けなくなるので、以後 cask で追加するGUIアプリは
+`~/Applications` に入る。`install_cask_app.sh` が書き込み可否を自動判定する。
 
-なお `/Applications` にも書き込めないため、`install_cask_app.sh` は書き込み可否を自動判定して
-`~/Applications` にインストールする。
+MDM（LanScope An）のポリシーで昇格が後から取り消される可能性があるため、
+セットアップはまとめて一気に流すこと。
+
+管理者権限がどうしても取れない場合は、以下3点だけ管理者に実行してもらえば残りは自力で進められる。
+`/opt/homebrew` さえ譲渡されれば Homebrew 本体は tarball 展開で入り、以後 `brew install` に
+sudo は不要（prefix が `/opt/homebrew` のままなのでビルド済みバイナリも効く）。
+
+1. `xcode-select --install`（Command Line Tools）
+2. `sudo mkdir -p /opt/homebrew && sudo chown -R kawabe:admin /opt/homebrew`
+   → その後 `curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip-components 1 -C /opt/homebrew`
+3. pkg形式のcask 4本: `session-manager-plugin` `git-credential-manager` `gcloud-cli` `zoom`
 
 ## 設定手順
 
