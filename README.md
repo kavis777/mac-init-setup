@@ -28,6 +28,31 @@
 - コントロールセンター > バッテリー > 「割合（％）を表示」を ON
 - 一般 > デフォルトの Web ブラウザ > Chrome
 
+## 前提: 管理者権限
+
+会社支給のMacでは `kawabe` が標準ユーザーに設定されており `sudo` が使えない
+（`kawabe is not in the sudoers file` になる）。以下は管理者でないと実行できないため、
+セットアップ開始前に情報システム部に依頼する。
+
+1. **Command Line Tools のインストール**（`xcode-select --install` のダイアログで管理者認証）
+2. **Homebrew 用ディレクトリの作成と譲渡**
+   ```
+   sudo mkdir -p /opt/homebrew
+   sudo chown -R kawabe:admin /opt/homebrew
+   ```
+   これさえ済めば Homebrew 本体は tarball 展開で入れられ、以後の `brew install` に
+   sudo は不要（prefix が `/opt/homebrew` のままなのでビルド済みバイナリも効く）
+   ```
+   curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip-components 1 -C /opt/homebrew
+   ```
+3. **pkg形式のcask 4本**: `session-manager-plugin` `git-credential-manager` `gcloud-cli` `zoom`
+   （インストーラが管理者認証を求めるため）
+
+セットアップ中だけ一時的に管理者権限をもらえるなら、上記は不要で手順どおり進められる。
+
+なお `/Applications` にも書き込めないため、`install_cask_app.sh` は書き込み可否を自動判定して
+`~/Applications` にインストールする。
+
 ## 設定手順
 
 任意のディレクトリに以下のリポジトリをクローンする。
