@@ -40,7 +40,7 @@ mac-init-setup リポジトリ配下で以下のコマンドを順に実行す�
 
 1. Homebrew パッケージのインストール
 2. GUI アプリのインストール
-3. dotfiles 等のクローン・シンボリックリンク（GitHub認証が未設定なら対話的にログイン）
+3. dotfiles 等のクローン・シンボリックリンク・MCP設定の雛形作成（GitHub認証が未設定なら対話的にログイン）
 4. 言語ランタイムのインストール
 5. Bitwarden からシークレットを復元
 
@@ -51,6 +51,18 @@ sh config_setup.sh
 sh install_asdf.sh
 sh setup_secrets.sh
 ```
+
+### 旧マシンでやっておくこと
+
+新マシンは各リポジトリを GitHub から clone するため、移行前に旧マシンで以下を済ませておく。
+
+1. `~/dotfiles` `~/ai-memory` `~/claude-personal` `~/claude-config` `~/my-memory` をコミットして push する
+2. `~/projects` 配下にリモート未設定のリポジトリがないか確認する
+   ```
+   for d in ~/projects/*/; do [ -d "$d/.git" ] || continue; git -C "$d" remote get-url origin >/dev/null 2>&1 || echo "リモートなし: $d"; done
+   ```
+3. 現在のシークレットを Bitwarden に登録する: `sh register_secrets.sh`
+4. `brew leaves` / `brew list --cask` と `app_list/` の差分を確認して反映する
 
 ## 手動でやること
 
@@ -74,6 +86,8 @@ sh setup_secrets.sh
 - cask_not.txt にあるアプリを手動でインストール
 - 英かなでキーリマップの設定
 - SSH鍵・gh認証は `setup_secrets.sh` で自動復元される（Bitwarden未登録の場合: `gh auth login --web`）
+  - SSH鍵は `~/.ssh/` 配下の `known_hosts` 以外の全ファイル（`.pem` 等も含む）がまとめて
+    Bitwarden のセキュアノート1件に入る。鍵を足したら `register_secrets.sh` を再実行する
 
 ### シークレットの管理
 
@@ -85,9 +99,28 @@ sh setup_secrets.sh
 2. `sh register_secrets.sh` で現在の値をBitwardenに登録する
 
 ```
-# 例: 新しいMCPサーバーのトークンを追加
-json:claude-newservice-token:~/.claude/settings.local.json:.mcpServers.newservice.env.API_TOKEN
+# 例: 新しいMCPサーバーのトークンを追加（JSONの特定パスに注入）
+json:claude-newservice-token:~/.claude.json:.mcpServers.newservice.env.API_TOKEN
+
+# 例: 1行のトークンを平文ファイルとして置く場合（chmod省略時は600）
+file:newservice-token:~/.config/newservice/token:600
 ```
+
+### MCP サーバーの設定
+
+Claude Code が実際に読むのは `~/.claude.json` だが、このファイルは `machineID` や `projects`
+などローカル状態も持つため、丸ごと dotfiles で管理することはできない。
+
+そのため `~/dotfiles/claude/claude-json.template` に **MCP サーバー定義だけ** を置き、
+`config_setup.sh` が `mcpServers` のみを `~/.claude.json` にマージする。既存の定義があれば
+そちらが優先され、不足しているサーバーだけが追加される。トークンは `<...>` のプレースホルダに
+しておき、`setup_secrets.sh` が Bitwarden の値で置き換える。
+
+MCP サーバーを増やしたときは、テンプレートに定義を足し、トークンがあれば `secrets.conf` にも
+1行足すこと。
+
+`youtrack-agile` MCP だけはローカルの `~/projects/youtrack-agile-mcp` を参照しているため、
+`config_setup.sh` がこのリポジトリも clone する。
 
 **現在のマシンのシークレットをBitwardenに登録（バックアップ）:**
 

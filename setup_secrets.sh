@@ -66,6 +66,25 @@ handle_json() {
   fi
 }
 
+handle_file() {
+  local bw_item="$1"
+  local target_file="${2/#\~/$HOME}"
+  local mode="${3:-600}"
+
+  local value
+  value=$(bw get password "$bw_item" 2>/dev/null) || true
+
+  if [[ -z "$value" ]]; then
+    echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
+    return
+  fi
+
+  mkdir -p "$(dirname "$target_file")"
+  printf '%s\n' "$value" > "$target_file"
+  chmod "$mode" "$target_file"
+  echo "✔ ${bw_item} → ${target_file}"
+}
+
 handle_gh() {
   local bw_item="$1"
 
@@ -152,6 +171,14 @@ while IFS= read -r line; do
       target_file="${rest%%:*}"
       jq_path="${rest#*:}"
       handle_json "$bw_item" "$target_file" "$jq_path"
+      ;;
+    file)
+      bw_item="${rest%%:*}"
+      rest="${rest#*:}"
+      target_file="${rest%%:*}"
+      mode="${rest#*:}"
+      [[ "$mode" == "$target_file" ]] && mode="600"
+      handle_file "$bw_item" "$target_file" "$mode"
       ;;
     gh)
       handle_gh "$rest"

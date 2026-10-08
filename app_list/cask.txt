@@ -6,13 +6,15 @@ claude-code       # Claude Code CLI
 codex             # OpenAI Codex CLI
 cursor            # AI搭載コードエディタ
 visual-studio-code # コードエディタ
-docker            # コンテナランタイム
-docker-desktop    # Docker GUI
+docker-desktop    # Docker Desktop（旧トークン docker は同一caskのため記載しない）
 fork              # Gitクライアント
 tableplus         # データベースGUIクライアント
 session-manager-plugin # AWS SSMプラグイン
 cmux              # AIエージェント向けターミナル（Ghosttyベース）
 git-credential-manager # Git認証管理
+android-platform-tools # adb等のAndroidツール
+gcloud-cli        # Google Cloud CLI
+ngrok             # ローカルサーバーの外部公開トンネル
 
 # デザイン
 figma             # デザインツール

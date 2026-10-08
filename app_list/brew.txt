@@ -5,8 +5,18 @@ asdf              # 言語バージョン管理ツール（Node.js, Ruby等）
 neovim            # ターミナルベースのテキストエディタ
 
 # Git関連
+git               # Git本体（macOS同梱版より新しい版を使う）
 gh                # GitHub CLI
 ghq               # Gitリポジトリ管理
+lazygit           # GitのTUIクライアント
+
+# ターミナル
+tmux              # 端末マルチプレクサ
+
+# ビルドツール
+cmake             # ネイティブ拡張のビルド（asdf経由のruby/python等で必要）
+libyaml           # YAMLライブラリ（asdf ruby のビルドに必要）
+
 # 検索・ファイル操作
 fd                # 高速なfind代替
 fzf               # ファジーファインダー（Ctrl+Rの履歴検索等）
@@ -32,14 +42,18 @@ ffmpegthumbnailer # 動画サムネイル生成（yaziプレビュー用）
 imagemagick       # 画像変換・処理
 poppler           # PDF処理（yaziプレビュー用）
 
-# データベース
+# データベース・ミドルウェア
 postgresql@14     # PostgreSQL
+mysql-client      # MySQLクライアント（サーバーは入れない）
+redis             # インメモリKVS（ローカル開発用）
+nginx             # Webサーバー（ローカル開発用）
 
 # パッケージマネージャ
 yarn              # Node.jsパッケージマネージャ
 
 # 言語ランタイム
 python@3.14       # Python 3.14（podcast clips / mlx-whisper で使用）
+rust              # Rustツールチェーン
 
 # ネットワーク・トンネル
 cloudflared       # Cloudflare Tunnel クライアント（podcast clips の外部公開で使用）

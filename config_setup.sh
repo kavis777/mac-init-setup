@@ -4,10 +4,12 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # ---------- 前提チェック ----------
 
-if ! command -v gh &>/dev/null; then
-  echo "エラー: gh がインストールされていません。先に install_brew_app.sh を実行してください。"
-  exit 1
-fi
+for cmd in gh jq; do
+  if ! command -v "$cmd" &>/dev/null; then
+    echo "エラー: ${cmd} がインストールされていません。先に install_brew_app.sh を実行してください。"
+    exit 1
+  fi
+done
 
 if ! gh auth status &>/dev/null; then
   echo "GitHub認証が必要です。ブラウザでログインしてください。"
@@ -40,6 +42,32 @@ if [[ ! -f ~/.claude/settings.local.json ]]; then
   mkdir -p ~/.claude
   cp ~/dotfiles/claude/settings.local.json.template ~/.claude/settings.local.json
   echo "トークンの設定は setup_secrets.sh で自動的に行われます"
+fi
+
+# ~/.claude.json のMCPサーバー定義をテンプレートから補完
+# （~/.claude.json は machineID / projects などローカル状態も持つためリンクはせずマージする。
+#   既存の定義が優先され、不足しているサーバーだけが追加される）
+MCP_TEMPLATE=~/dotfiles/claude/claude-json.template
+if [[ -f "$MCP_TEMPLATE" ]]; then
+  [[ -f ~/.claude.json ]] || echo '{}' > ~/.claude.json
+  mcp_tmp=$(mktemp)
+  if sed "s|__HOME__|$HOME|g" "$MCP_TEMPLATE" \
+    | jq -s '.[0] as $cur | .[1] as $tpl
+             | $cur
+             | .mcpServers = (($tpl.mcpServers // {}) + ($cur.mcpServers // {}))' \
+        ~/.claude.json - > "$mcp_tmp"; then
+    mv "$mcp_tmp" ~/.claude.json
+    echo "✔ ~/.claude.json にMCPサーバー定義を補完しました（トークンは setup_secrets.sh で注入）"
+  else
+    echo "⚠ ~/.claude.json のMCP定義マージに失敗しました (スキップ)" >&2
+    rm -f "$mcp_tmp"
+  fi
+fi
+
+# youtrack-agile MCP サーバー（~/.claude.json から絶対パスで参照している）
+mkdir -p ~/projects
+if [[ ! -d ~/projects/youtrack-agile-mcp ]]; then
+  git clone https://github.com/kavis777/youtrack-agile-mcp.git ~/projects/youtrack-agile-mcp
 fi
 
 # ai-memoryをホームディレクトリにクローン & セットアップ

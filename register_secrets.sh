@@ -109,6 +109,26 @@ register_json() {
   create_or_update_login "$bw_item" "$value" "対象: $target_file ($jq_path)"
 }
 
+register_file() {
+  local bw_item="$1"
+  local target_file="${2/#\~/$HOME}"
+
+  if [[ ! -f "$target_file" ]]; then
+    echo "⚠ ${target_file} が存在しません (スキップ: ${bw_item})"
+    return
+  fi
+
+  local value
+  value=$(tr -d '\n' < "$target_file")
+
+  if [[ -z "$value" || "$value" == "<"* ]]; then
+    echo "⚠ ${target_file} が空またはプレースホルダです (スキップ: ${bw_item})"
+    return
+  fi
+
+  create_or_update_login "$bw_item" "$value" "対象: $target_file"
+}
+
 register_gh() {
   local bw_item="$1"
 
@@ -172,6 +192,12 @@ while IFS= read -r line; do
       target_file="${rest%%:*}"
       jq_path="${rest#*:}"
       register_json "$bw_item" "$target_file" "$jq_path"
+      ;;
+    file)
+      bw_item="${rest%%:*}"
+      rest="${rest#*:}"
+      target_file="${rest%%:*}"
+      register_file "$bw_item" "$target_file"
       ;;
     gh)
       register_gh "$rest"

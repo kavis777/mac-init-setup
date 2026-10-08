@@ -15,9 +15,15 @@ while IFS= read -r app; do
   fi
 done < app_list/cask.txt
 
-if [[ ${#missing[@]} -gt 0 ]]; then
-  echo "Installing missing cask apps: ${missing[*]}"
-  brew install --cask "${missing[@]}"
+# 1つずつインストールする。まとめて渡すと1本の失敗で全体が止まるため
+failed=()
+for app in "${missing[@]}"; do
+  echo "Installing: $app"
+  brew install --cask "$app" || failed+=("$app")
+done
+
+if [[ ${#failed[@]} -gt 0 ]]; then
+  echo "⚠ インストールに失敗したアプリ: ${failed[*]}" >&2
 fi
 
 echo "Cleanup Homebrew..."
