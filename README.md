@@ -69,13 +69,15 @@ sh setup_secrets.sh
 - App Store を起動して必要なアプリをインストール
 - Dropbox
   - アプリを起動してログイン
-  - .zsh_hisotory の共有
+- zsh のコマンド履歴（引き継ぎたい場合のみ）
+  - 旧マシンから直接コピーする
     ```
-    ln -s -f  ~/Dropbox/Apps/zsh/.zsh_history ~
+    scp 旧マシン:~/.zsh_history ~/.zsh_history
     ```
-- iTerm2
-  - アプリを起動して、Settings > General > Settings の「Import All Settings and Data」で`~/Dropbox/Apps/iTerm2/iTerm2 State.itermexport`を選択する
-  - Settings > General > Settings の「Load settings from a custom folder or URL」にチェックを入れて Path に/Users/kawabe/Dropbox/Apps/iTerm2 を選択して「Save changes」を「Manually」に変更する
+  - かつては `~/Dropbox/Apps/zsh/.zsh_history` へのシンボリックリンクで共有していたが、
+    現在は各マシンのローカルファイルで運用している（Dropbox側は2022年で更新停止）
+- cmux（ターミナル。設定は dotfiles の `cmux/cmux.json` と `cmux/config.ghostty` がリンクされる）
+  - アプリを起動して表示を確認するだけでよい
 - VS Code
   - アプリを起動して設定を同期
 - Raycast
