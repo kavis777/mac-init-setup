@@ -108,10 +108,22 @@ sh setup_secrets.sh
    ```
    for d in ~/projects/*/; do [ -d "$d/.git" ] || continue; c=$(git -C "$d" status --porcelain | wc -l); p=$(git -C "$d" log --oneline --branches --not --remotes | wc -l); [ $c -gt 0 -o $p -gt 0 ] && echo "$(basename $d): 未コミット$c 未push$p"; done
    ```
-3. git 管理外の秘密ファイルを新マシンへ移す（`.env*`、Rails の `config/master.key` 等）。clone では戻らない
-   ```
-   find ~/projects -maxdepth 3 -name node_modules -prune -o \( -name '.env*' -o -name master.key \) -type f -print
-   ```
+3. git 管理外の秘密ファイルを新マシンへ移す（`.env*`、Rails の `config/master.key` 等）。clone では戻らない。
+   `.env` は頻繁に変わるので Bitwarden には入れず、移行のたびに tar で一度だけ運ぶ
+   1. git 管理外のものだけを洗い出す（追跡済みの `.env.*` と worktree の分は clone・worktree 作成で戻る）
+      ```
+      cd ~/projects && find . -maxdepth 3 -name node_modules -prune -o \( -name '.env*' -o -name master.key \) -type f -print \
+        | grep -v -- '-wt[0-9]' | while read f; do git -C "$(dirname "$f")" ls-files --error-unmatch "$(basename "$f")" >/dev/null 2>&1 || echo "$f"; done
+      ```
+   2. 出てきたパスを `~/projects` からの相対パスのまま tar にする
+      ```
+      cd ~/projects && (umask 077; tar -czpf ~/Desktop/env-migration.tar.gz <上のパス…>)
+      ```
+   3. AirDrop で新マシンへ送り、各リポジトリを clone した後に展開する（`-k` で既存ファイルは上書きしない）
+      ```
+      tar -xzpkf ~/Downloads/env-migration.tar.gz -C ~/projects
+      ```
+   4. 両マシンの tar を削除する
 4. 現在のシークレットを Bitwarden に登録する: `sh register_secrets.sh`
 5. `brew leaves` / `brew list --cask` / `/Applications` と `app_list/` の差分を確認して反映する
 

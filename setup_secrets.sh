@@ -43,6 +43,19 @@ bw sync
 
 # ---------- ハンドラー ----------
 
+# ~/projects 配下の復元先は、そのリポジトリが clone 済みのときだけ復元する。
+# 先にディレクトリを作ってしまうと、後の git clone が「空でないディレクトリ」で失敗するため
+repo_not_cloned() {
+  local dir
+  dir=$(dirname "$1")
+  [[ "$dir" == "$HOME/projects/"* ]] || return 1
+  while [[ "$dir" != "$HOME/projects" ]]; do
+    [[ -e "$dir/.git" ]] && return 1
+    dir=$(dirname "$dir")
+  done
+  return 0
+}
+
 handle_json() {
   local bw_item="$1"
   local target_file="${2/#\~/$HOME}"
@@ -70,6 +83,11 @@ handle_file() {
   local bw_item="$1"
   local target_file="${2/#\~/$HOME}"
   local mode="${3:-600}"
+
+  if repo_not_cloned "$target_file"; then
+    echo "⚠ ${target_file} のリポジトリが未cloneです。clone 後に再実行してください (スキップ: ${bw_item})"
+    return
+  fi
 
   local value
   value=$(bw get password "$bw_item" 2>/dev/null) || true
@@ -157,6 +175,11 @@ handle_note() {
   local bw_item="$1"
   local target_file="${2/#\~/$HOME}"
   local mode="${3:-600}"
+
+  if repo_not_cloned "$target_file"; then
+    echo "⚠ ${target_file} のリポジトリが未cloneです。clone 後に再実行してください (スキップ: ${bw_item})"
+    return
+  fi
 
   if [[ -f "$target_file" ]]; then
     echo "✔ ${target_file} は既に存在します (スキップ: ${bw_item})"
