@@ -191,7 +191,8 @@ register_note() {
 echo "=== 現在のシークレットをBitwardenに登録します ==="
 echo ""
 
-while IFS= read -r line; do
+# bw が stdin を読むため、secrets.conf は fd 3 から読む（stdin だと残りの行を飲まれてループが黙って終わる）
+while IFS= read -r line <&3; do
   [[ -z "$line" || "$line" == \#* ]] && continue
 
   type="${line%%:*}"
@@ -227,7 +228,7 @@ while IFS= read -r line; do
       echo "⚠ 不明なタイプ: ${type} (スキップ: ${line})"
       ;;
   esac
-done < "$SECRETS_CONF"
+done 3< "$SECRETS_CONF" < /dev/null
 
 echo ""
 echo "登録が完了しました"

@@ -107,7 +107,8 @@ handle_file() {
 handle_gh() {
   local bw_item="$1"
 
-  if gh auth status &>/dev/null; then
+  # gh auth status は API に問い合わせるため、レート制限中は認証済みでも失敗する。ローカルのトークン有無で判定する
+  if gh auth token &>/dev/null; then
     echo "✔ GitHub CLI は認証済みです"
     return
   fi
@@ -116,8 +117,12 @@ handle_gh() {
   value=$(bw get password "$bw_item" 2>/dev/null) || true
 
   if [[ -n "$value" ]]; then
-    printf '%s\n' "$value" | gh auth login --with-token
-    echo "✔ GitHub CLI を認証しました"
+    # 失敗しても後続（SSH鍵の復元など）は続ける
+    if printf '%s\n' "$value" | gh auth login --with-token; then
+      echo "✔ GitHub CLI を認証しました"
+    else
+      echo "⚠ GitHub CLI の認証に失敗しました (スキップ)" >&2
+    fi
   else
     echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
   fi
