@@ -72,7 +72,8 @@ handle_json() {
   if [[ -n "$value" ]]; then
     local tmp
     tmp=$(jq --arg v "$value" "$jq_path = \$v" "$target_file")
-    echo "$tmp" > "$target_file"
+    # sh（macOS の /bin/sh）の echo は \n を改行に展開して JSON を壊すため printf を使う
+    printf '%s\n' "$tmp" > "$target_file"
     echo "✔ ${bw_item} → ${jq_path}"
   else
     echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
@@ -115,7 +116,7 @@ handle_gh() {
   value=$(bw get password "$bw_item" 2>/dev/null) || true
 
   if [[ -n "$value" ]]; then
-    echo "$value" | gh auth login --with-token
+    printf '%s\n' "$value" | gh auth login --with-token
     echo "✔ GitHub CLI を認証しました"
   else
     echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
