@@ -1,11 +1,2 @@
 # caskでインストールせずに直接インストールしたアプリ
-LayerX              # 経費精算・請求書処理
 TrendMicroSecurity  # ウイルス対策ソフト
-VideoSolo ブルーレイプレーヤー # ブルーレイ再生
-
-# App Storeからインストールしたアプリ
-Line                # メッセージアプリ
-Lightshot Screenshot # スクリーンショット
-Flow                # ポモドーロタイマー
-Skitch              # 画像への注釈
-Toggl Track         # 時間計測
