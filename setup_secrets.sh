@@ -207,7 +207,8 @@ handle_note() {
 echo "=== シークレットを復元します ==="
 echo ""
 
-while IFS= read -r line; do
+# bw get が stdin を読むため、secrets.conf は fd 3 から読む（stdin だと残りの行を飲まれてループが黙って終わる）
+while IFS= read -r line <&3; do
   [[ -z "$line" || "$line" == \#* ]] && continue
 
   type="${line%%:*}"
@@ -247,7 +248,7 @@ while IFS= read -r line; do
       echo "⚠ 不明なタイプ: ${type} (スキップ: ${line})"
       ;;
   esac
-done < "$SECRETS_CONF"
+done 3< "$SECRETS_CONF" < /dev/null
 
 echo ""
 echo "シークレットの復元が完了しました"
