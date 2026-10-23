@@ -58,4 +58,10 @@ if [[ -f "$JOBCAN_DIR/package-lock.json" && ! -d "$JOBCAN_DIR/node_modules" ]]; 
   (cd "$JOBCAN_DIR" && npm ci) || echo "⚠ jobcan-cli の npm ci に失敗しました (スキップ)" >&2
 fi
 
+# npm グローバルの CLI（Node が入った後でないと入れられない）
+if ! command -v clasp &>/dev/null; then
+  echo "Installing: @google/clasp (npm global)"
+  npm install -g @google/clasp || echo "⚠ clasp のインストールに失敗しました (スキップ)" >&2
+fi
+
 echo "$(tput setaf 2)Done ✔︎$(tput sgr0)"
