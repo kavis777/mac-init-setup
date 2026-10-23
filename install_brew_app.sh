@@ -23,3 +23,20 @@ while IFS= read -r app; do
     fi
   fi
 done < app_list/brew.txt
+
+# uv（Pythonツール管理）。dotfiles/scripts/claude-usage-alert が ~/.local/bin/uv を
+# 絶対パスで呼ぶため、brew ではなく公式インストーラで ~/.local/bin に入れる。
+# PATH は dotfiles の .zshrc が通すので、インストーラにはシェル設定を書き換えさせない
+if [[ ! -x "$HOME/.local/bin/uv" ]]; then
+  echo "Installing: uv"
+  curl -LsSf https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 sh
+fi
+if ! "$HOME/.local/bin/uv" tool list 2>/dev/null | grep -q '^claude-monitor '; then
+  echo "Installing: claude-monitor (uv tool)"
+  "$HOME/.local/bin/uv" tool install claude-monitor || echo "⚠ claude-monitor のインストールに失敗しました (スキップ)" >&2
+fi
+
+# ローカル開発用のミドルウェアをログイン時に自動起動させる
+for service in postgresql@14 redis nginx; do
+  brew services start "$service" || echo "⚠ ${service} の起動に失敗しました (スキップ)" >&2
+done

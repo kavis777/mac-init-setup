@@ -87,3 +87,14 @@ if [[ ! -d ~/claude-personal ]]; then
   git clone https://github.com/kavis777/claude-personal.git ~/claude-personal
 fi
 bash ~/claude-personal/setup.sh
+
+# my-memory（自分の記憶システム）。vault は独立repoなので my-memory の中に別途クローンする
+if [[ ! -d ~/my-memory ]]; then
+  git clone https://github.com/kavis777/my-memory.git ~/my-memory
+fi
+if [[ ! -d ~/my-memory/vault ]]; then
+  git clone https://github.com/kavis777/my-memory-vault.git ~/my-memory/vault
+fi
+
+# dotfiles 管理の LaunchAgents（claude-usage-alert 等）を登録する
+bash ~/dotfiles/scripts/setup-launchagents.sh --work

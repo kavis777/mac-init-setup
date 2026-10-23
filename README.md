@@ -81,11 +81,11 @@ git clone https://github.com/kavis777/mac-init-setup.git
 
 mac-init-setup リポジトリ配下で以下のコマンドを順に実行する。
 
-1. Homebrew パッケージのインストール
+1. Homebrew パッケージ・uv（+ claude-monitor）のインストール、postgresql@14 / redis / nginx の自動起動登録
 2. GUI アプリのインストール
-3. dotfiles 等のクローン・シンボリックリンク・MCP設定の雛形作成（GitHub認証が未設定なら対話的にログイン）
-4. 言語ランタイムのインストール
-5. Bitwarden からシークレットを復元
+3. dotfiles・ai-memory・my-memory 等のクローン、シンボリックリンク・MCP設定の雛形作成、LaunchAgents の登録（GitHub認証が未設定なら対話的にログイン）
+4. 言語ランタイムのインストール（あわせて dotfiles の jobcan-cli の依存を入れる）
+5. Bitwarden からシークレット・設定ファイル（`~/.aws/config` `~/.codex/config.toml` `~/.mulmoterminal/config.json` 等）を復元
 
 ```
 sh install_brew_app.sh
@@ -99,13 +99,21 @@ sh setup_secrets.sh
 
 新マシンは各リポジトリを GitHub から clone するため、移行前に旧マシンで以下を済ませておく。
 
-1. `~/dotfiles` `~/ai-memory` `~/claude-personal` `~/claude-config` `~/my-memory` をコミットして push する
+1. `~/dotfiles` `~/ai-memory` `~/claude-personal` `~/claude-config` `~/my-memory` `~/my-memory/vault` をコミットして push する
 2. `~/projects` 配下にリモート未設定のリポジトリがないか確認する
    ```
    for d in ~/projects/*/; do [ -d "$d/.git" ] || continue; git -C "$d" remote get-url origin >/dev/null 2>&1 || echo "リモートなし: $d"; done
    ```
-3. 現在のシークレットを Bitwarden に登録する: `sh register_secrets.sh`
-4. `brew leaves` / `brew list --cask` と `app_list/` の差分を確認して反映する
+   あわせて未push・未コミットの変更がないかも見る
+   ```
+   for d in ~/projects/*/; do [ -d "$d/.git" ] || continue; c=$(git -C "$d" status --porcelain | wc -l); p=$(git -C "$d" log --oneline --branches --not --remotes | wc -l); [ $c -gt 0 -o $p -gt 0 ] && echo "$(basename $d): 未コミット$c 未push$p"; done
+   ```
+3. git 管理外の秘密ファイルを新マシンへ移す（`.env*`、Rails の `config/master.key` 等）。clone では戻らない
+   ```
+   find ~/projects -maxdepth 3 -name node_modules -prune -o \( -name '.env*' -o -name master.key \) -type f -print
+   ```
+4. 現在のシークレットを Bitwarden に登録する: `sh register_secrets.sh`
+5. `brew leaves` / `brew list --cask` / `/Applications` と `app_list/` の差分を確認して反映する
 
 ## 手動でやること
 
@@ -130,6 +138,14 @@ sh setup_secrets.sh
   - vim を起動して`:PlugInstall`コマンドを実行
 - cask_not.txt にあるアプリを手動でインストール
 - 英かなでキーリマップの設定
+- 各種CLIに再ログインする（トークンをBitwardenで持たない運用のもの）
+  - AWS: `aws sso login --sso-session lclco`（プロファイル定義は `setup_secrets.sh` で復元される）
+  - gcloud: `gcloud auth login`
+  - clasp: `clasp login`
+  - Docker: `docker login`
+  - Codex: `codex login`
+  - Cursor CLI: `cursor-agent login`
+- ジョブカン CLI の認証情報を Bitwarden から Keychain に取り込む: `jobcan sync-credential`
 - SSH鍵・gh認証は `setup_secrets.sh` で自動復元される（Bitwarden未登録の場合: `gh auth login --web`）
   - SSH鍵は `~/.ssh/` 配下の `known_hosts` 以外の全ファイル（`.pem` 等も含む）がまとめて
     Bitwarden のセキュアノート1件に入る。鍵を足したら `register_secrets.sh` を再実行する

@@ -153,6 +153,31 @@ handle_ssh() {
   restore_file
 }
 
+handle_note() {
+  local bw_item="$1"
+  local target_file="${2/#\~/$HOME}"
+  local mode="${3:-600}"
+
+  if [[ -f "$target_file" ]]; then
+    echo "✔ ${target_file} は既に存在します (スキップ: ${bw_item})"
+    return
+  fi
+
+  local notes
+  notes=$(bw list items --search "$bw_item" 2>/dev/null \
+    | jq -r --arg name "$bw_item" '.[] | select(.name == $name) | .notes // empty') || true
+
+  if [[ -z "$notes" ]]; then
+    echo "⚠ Bitwardenに '${bw_item}' が見つかりません (スキップ)"
+    return
+  fi
+
+  mkdir -p "$(dirname "$target_file")"
+  printf '%s\n' "$notes" > "$target_file"
+  chmod "$mode" "$target_file"
+  echo "✔ ${bw_item} → ${target_file}"
+}
+
 # ---------- secrets.conf を処理 ----------
 
 echo "=== シークレットを復元します ==="
@@ -185,6 +210,14 @@ while IFS= read -r line; do
       ;;
     ssh)
       handle_ssh "$rest"
+      ;;
+    note)
+      bw_item="${rest%%:*}"
+      rest="${rest#*:}"
+      target_file="${rest%%:*}"
+      mode="${rest#*:}"
+      [[ "$mode" == "$target_file" ]] && mode="600"
+      handle_note "$bw_item" "$target_file" "$mode"
       ;;
     *)
       echo "⚠ 不明なタイプ: ${type} (スキップ: ${line})"

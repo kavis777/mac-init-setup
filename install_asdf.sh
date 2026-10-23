@@ -52,4 +52,10 @@ fi
 
 asdf reshim 2>/dev/null || true
 
+# dotfiles の jobcan CLI の依存（node_modules は git 管理外。Node が入った後でないと入れられない）
+JOBCAN_DIR="$HOME/dotfiles/scripts/jobcan-cli"
+if [[ -f "$JOBCAN_DIR/package-lock.json" && ! -d "$JOBCAN_DIR/node_modules" ]]; then
+  (cd "$JOBCAN_DIR" && npm ci) || echo "⚠ jobcan-cli の npm ci に失敗しました (スキップ)" >&2
+fi
+
 echo "$(tput setaf 2)Done ✔︎$(tput sgr0)"

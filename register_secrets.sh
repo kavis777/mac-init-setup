@@ -174,6 +174,18 @@ $(cat "$file")
   create_or_update_secure_note "$bw_item" "$notes"
 }
 
+register_note() {
+  local bw_item="$1"
+  local target_file="${2/#\~/$HOME}"
+
+  if [[ ! -s "$target_file" ]]; then
+    echo "⚠ ${target_file} が存在しないか空です (スキップ: ${bw_item})"
+    return
+  fi
+
+  create_or_update_secure_note "$bw_item" "$(cat "$target_file")"
+}
+
 # ---------- secrets.conf を処理 ----------
 
 echo "=== 現在のシークレットをBitwardenに登録します ==="
@@ -204,6 +216,12 @@ while IFS= read -r line; do
       ;;
     ssh)
       register_ssh "$rest"
+      ;;
+    note)
+      bw_item="${rest%%:*}"
+      rest="${rest#*:}"
+      target_file="${rest%%:*}"
+      register_note "$bw_item" "$target_file"
       ;;
     *)
       echo "⚠ 不明なタイプ: ${type} (スキップ: ${line})"
