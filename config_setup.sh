@@ -11,7 +11,8 @@ for cmd in gh jq; do
   fi
 done
 
-if ! gh auth status &>/dev/null; then
+# gh auth status は API を叩くためレート制限中は認証済みでも失敗する。ローカルのトークン有無で判定する
+if ! gh auth token &>/dev/null; then
   echo "GitHub認証が必要です。ブラウザでログインしてください。"
   gh auth login
 fi
@@ -69,6 +70,19 @@ mkdir -p ~/projects
 if [[ ! -d ~/projects/youtrack-agile-mcp ]]; then
   git clone https://github.com/kavis777/youtrack-agile-mcp.git ~/projects/youtrack-agile-mcp
 fi
+
+# 仕事のリポジトリ（app_list/repos.txt）を ~/projects に clone する
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+while read -r repo dest; do
+  [[ -z "$repo" || "$repo" == \#* ]] && continue
+  if [[ -d ~/projects/"$dest"/.git ]]; then
+    echo "Already cloned: $dest"
+  else
+    mkdir -p "$(dirname ~/projects/"$dest")"
+    git clone "https://github.com/${repo}.git" ~/projects/"$dest" < /dev/null \
+      || echo "⚠ ${repo} の clone に失敗しました (スキップ)" >&2
+  fi
+done < "$SCRIPT_DIR/app_list/repos.txt"
 
 # ai-memoryをホームディレクトリにクローン & セットアップ
 if [[ ! -d ~/ai-memory ]]; then

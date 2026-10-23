@@ -1,0 +1,18 @@
+# config_setup.sh が clone する仕事のリポジトリ
+# 書式: <owner>/<repo> <~/projects からの置き場所>
+# 既に clone 済みのものはスキップする。.env 類の tar もこの置き場所を前提に展開する
+
+# navi 系
+lcl-bus/busportal-navi        navi/busportal-navi
+lcl-bus/busportal-navi-front  navi/busportal-navi-front
+lcl-bus/bus-ota-man           navi/bus-ota-man
+lcl-bus/bus-reservation       navi/bus-reservation
+
+# その他
+lcl-bus/tabihikaku-front      tabihikaku-front
+lcl-bus/bustour-api           bustour-api
+lcl-bus/bustour-front         bustour-front
+lcl-bus/corporate-front       corporate-front
+lcl-bus/tour-overseas-backend tour-overseas-backend
+lcl-bus/common-actions        common-actions
+lcl-bus/idou                  idou
