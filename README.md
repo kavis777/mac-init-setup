@@ -149,7 +149,7 @@ sh setup_secrets.sh
   - [vim-plug](https://github.com/junegunn/vim-plug?tab=readme-ov-file#unix-linux)のインストール
   - vim を起動して`:PlugInstall`コマンドを実行
 - cask_not.txt にあるアプリを手動でインストール
-- 英かなでキーリマップの設定
+- Karabiner-Elements を起動し、ドライバ・システム拡張・入力監視を許可する（管理者認証が必要。英数/かなの設定自体は dotfiles から入る）
 - 各種CLIに再ログインする（トークンをBitwardenで持たない運用のもの）
   - AWS: `aws sso login --sso-session lclco`（プロファイル定義は `setup_secrets.sh` で復元される）
   - gcloud: `gcloud auth login`

@@ -25,11 +25,11 @@ figma             # デザインツール
 # ユーティリティ
 appcleaner        # アプリの完全削除
 cleanshot         # スクリーンショット・画面録画
-cmd-eikana        # 英かな切替（左右Cmdキー）
+karabiner-elements # 英かな切替（左右Cmd単押し）。設定は dotfiles/karabiner
 raycast           # ランチャー（Spotlight代替）
 
 # クラウドストレージ
-box-sync          # Box同期
+box-drive         # Box同期
 dropbox           # Dropbox同期
 
 # ドキュメント
