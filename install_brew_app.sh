@@ -8,6 +8,11 @@ fi
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# ログインシェルで brew にPATHを通す（dotfiles の .zshrc は brew shellenv を呼ばない）
+if ! grep -qs 'brew shellenv' "$HOME/.zprofile"; then
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
+fi
+
 # Homebrewでアプリをインストール
 while IFS= read -r app; do
   app="${app%%#*}"

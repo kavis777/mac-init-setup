@@ -112,8 +112,10 @@ sh setup_secrets.sh
    `.env` は頻繁に変わるので Bitwarden には入れず、移行のたびに tar で一度だけ運ぶ
    1. git 管理外のものだけを洗い出す（追跡済みの `.env.*` と worktree の分は clone・worktree 作成で戻る）
       ```
-      cd ~/projects && find . -maxdepth 3 -name node_modules -prune -o \( -name '.env*' -o -name master.key \) -type f -print \
-        | grep -v -- '-wt[0-9]' | while read f; do git -C "$(dirname "$f")" ls-files --error-unmatch "$(basename "$f")" >/dev/null 2>&1 || echo "$f"; done
+      cd ~/projects && find . \( -name node_modules -o -name .git -o -name .next -o -name vendor \) -prune -o -type f \
+          \( -name '.env' -o -name '.env.*' -o -name '.envrc' -o -name '.dev.vars*' -o -name master.key \) -print \
+        | grep -v -E -- '-wt[0-9]/|\.(example|sample|template)$' \
+        | while read f; do git -C "$(dirname "$f")" ls-files --error-unmatch "$(basename "$f")" >/dev/null 2>&1 || echo "$f"; done
       ```
    2. 出てきたパスを `~/projects` からの相対パスのまま tar にする
       ```
