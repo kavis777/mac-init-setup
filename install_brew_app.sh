@@ -17,7 +17,8 @@ while IFS= read -r app; do
     echo "Already installed: $app"
   else
     echo "Installing: $app"
-    if ! brew install "$app"; then
+    # stdin を渡すと brew（依存のpost-install含む）が brew.txt の残りを読み込み、ループが黙って終わる
+    if ! brew install "$app" < /dev/null; then
       echo "エラー: ${app} のインストールに失敗しました" >&2
       exit 1
     fi

@@ -144,10 +144,10 @@ sh setup_secrets.sh
 - VS Code
   - アプリを起動して設定を同期
 - Raycast
-  - アプリを起動して設定をインポート
+  - 旧マシンの Raycast で Settings → Advanced → Export し、iCloud Drive に `Raycast <日付>.rayconfig` を置く
+  - 新マシンでそのファイルを開いて取り込む（設定画面に Import はない。ランチャーの「Import Settings & Data」でも可）
 - NeoVim
-  - [vim-plug](https://github.com/junegunn/vim-plug?tab=readme-ov-file#unix-linux)のインストール
-  - vim を起動して`:PlugInstall`コマンドを実行
+  - プラグインは lazy.nvim が初回起動時に自動で入れる（先に入れる場合: `nvim --headless "+Lazy! sync" +qa`）
 - cask_not.txt にあるアプリを手動でインストール
 - Karabiner-Elements を起動し、ドライバ・システム拡張・入力監視を許可する（管理者認証が必要。英数/かなの設定自体は dotfiles から入る）
 - 各種CLIに再ログインする（トークンをBitwardenで持たない運用のもの）
