@@ -156,7 +156,6 @@ sh setup_secrets.sh
   - clasp: `clasp login`
   - Docker: `docker login`
   - Codex: `codex login`
-  - Cursor CLI: `cursor-agent login`
 - ジョブカン CLI の認証情報を Bitwarden から Keychain に取り込む: `jobcan sync-credential`
 - SSH鍵・gh認証は `setup_secrets.sh` で自動復元される（Bitwarden未登録の場合: `gh auth login --web`）
   - SSH鍵は `~/.ssh/` 配下の `known_hosts` 以外の全ファイル（`.pem` 等も含む）がまとめて

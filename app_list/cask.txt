@@ -16,7 +16,6 @@ android-platform-tools # adb等のAndroidツール
 gcloud-cli        # Google Cloud CLI
 ngrok             # ローカルサーバーの外部公開トンネル
 codex-app         # OpenAI Codex デスクトップアプリ
-cursor-cli        # Cursor CLI（cursor-agent）
 dbeaver-community # データベースGUIクライアント
 
 # デザイン
